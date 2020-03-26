@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>模版语法</title>
+</head>
+<body>
+
+  <div id="app">
+    <p>{{msg}}</p>
+    <p v-once>{{msg}}</p>
+
+    <!-- v-html 的作用 -->
+    <p>未使用 v-html：{{rawHtml}}</p>
+    <div>
+      使用 v-html：<p v-html="rawHtml"></p>
+    <span v-html="rawHtml"></span>
+
+    </div>
+
+  </div>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        msg: 'Hello Vue',
+        rawHtml: '<span style="color: greenyellow;">这里是 黄绿 色</span>'
+
+      }
+      
+    })
+  </script>
+</body>
+</html>
+

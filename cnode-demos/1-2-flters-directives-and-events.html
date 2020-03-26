@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>过滤器&指令和事件&语法糖</title>
+
+  <style>
+    #haveColor {
+      background-color: red;
+    }
+
+    #changeColor {
+      background-color: blue;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    {{date | formatDate | a}} 
+    <br>
+
+    <p v-text="text"></p>
+    <p v-html="html"></p>
+    <p v-bind:id="changeColor">测试 v-bind</p>
+    <button v-on:click="addNum">{{num}}</button>
+  </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  function formatNumber(num) {
+    if(num < 10) {
+      return '0' + num
+    } else {
+      return num
+    }
+  }
+  var app = new Vue({
+    el: '#app',
+    data: {
+      date: new Date(),
+      text: '测试 v-text',
+      html: '<span id="haveColor">测试 v-html</span>',
+      changeColor: 'changeColor',
+      num: 0
+    },
+   
+    mounted: function() {
+      var $this = this
+      this.timer = setInterval(function(){
+        $this.date = new Date()
+      },1000)
+    },
+    beforeDestroy: function() {
+      if(this.timer) {
+        clearInterval(this.timer)
+      }
+    },
+    methods: {
+      addNum: function() {
+        this.num += 1
+      }
+    },
+    filters: {
+      formatDate: function(value) {
+        var date = new Date(value)
+        var year = date.getFullYear()
+        var month = formatNumber(date.getMonth() + 1) 
+        var day = formatNumber(date.getDate())
+        var hour = formatNumber(date.getHours())
+        var minutes = formatNumber(date.getMinutes())
+        var seconds = formatNumber(date.getSeconds())
+
+        return year + '年' + month + '月' + day + '日' + '   ' + hour + ':' + minutes + ':' + seconds
+      }
+    }
+    
+  })
+</script>
+</body>
+</html>

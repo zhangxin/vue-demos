@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- <div id="app">
+  </div> -->
+
+  <div id="app">
+    <p v-cloak>{{msg}}</p>
+    <p v-once>{{onceData}}</p>
+
+    <div v-if="show" key="">
+      <label for="">userName:</label>
+      <input type="text" placeholder="userName">
+    </div>
+    
+    <div v-else>
+      <label for="">password:</label>
+      <input type="text" placeholder="password">
+    </div>
+  
+    <button v-on:click="changeShow">click me</button>
+
+    <div v-show="9>10">v-show</div>
+    <div>hahhh</div>
+
+    v-for 遍历数组：
+    <ul>
+      <li v-for="(fruit,index) in fruits">{{index}}-----{{fruit.name}}</li>
+    </ul>
+
+    v-for 遍历对象属性：
+    <ul>
+      <li v-for="(bty,key,index) in beauty">{{index}}---{{key}}---{{bty}}</li>
+    </ul>
+    <cmt></cmt>
+  </div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      msg: 'hello',
+      onceData: '只执行一次',  
+      show: false,
+
+      fruits: [
+        {name: 'apple'},
+        {name: 'banana'},
+        {name: 'orange'}
+      ],
+
+      beauty: {
+        bty1: 'lala',
+        bty2: 'haha',
+        bty3: 'heihei'
+      }
+    },
+
+    methods: {
+      changeShow: function() {
+        this.show = !this.show
+        // console.log(sh)
+        console.log(1)
+      }
+    }
+  })
+
+</script>
+</body>
+</html>

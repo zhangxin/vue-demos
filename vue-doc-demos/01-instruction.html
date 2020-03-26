@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>介绍</title>
+</head>
+<body>
+  
+  <div id="app">
+
+    <!-- Vue.js 的核心是一个允许采用简洁的模版语法来声明式的将数据渲染进 DOM 的系统 -->
+    <p>{{msg}}</p> 
+
+    <!-- hoverMsg 不应该写成 hover-msg，应该是只有 属性名 使用 '-' 代替驼峰命名法-->
+    <!-- v-bind的作用：给渲染的 DOM 应用特殊的响应式行为。在这里的意思是：将 title 特性和 VUE 实例的message 属性保持一致-->
+    <span v-bind:title="hoverMsg">鼠标悬停几秒钟查看此处动态绑定的提示信息！</span>
+
+    <!-- 控制切换一个元素是否显示 -->
+    <!-- 我们不仅可以把数据绑定到 DOM 文本或特性，还可以绑定到 DOM 结构 -->
+    <p v-if="seen">看到我</p>
+
+    <!-- v-for 绑定数组的数据来渲染一个项目列表 -->
+    <ol>
+      <li v-for="product in products">{{product}}</li>
+    </ol>
+
+    <!-- v-on 指令定义一个事件监听器，通过它调用 vue 实例中定义的方法 -->
+    <button v-on:click="reverseMessage">reverseMessage</button>
+    <br>
+
+    <!-- v-model 指令，实现表单输入与应用状态之间的双向绑定 -->
+    <label for="">请输入：</label>
+    <input type="text" v-model="inputText">
+    <br>
+    {{inputText}}
+
+    <!-- 组件 -->
+    <!-- 组件是一种抽象，允许我们使用小型、独立、通常可复用的组件来构建大型的应用程序 -->
+    <!-- 组件的本质是拥有预定义项的 Vue 实例 -->
+  
+    <todo-item></todo-item>
+
+    <ol>
+      <todo-item2
+        v-for="item in groceryList"
+        v-bind:todo="item"
+        v-bind:key="item.id"
+      ></todo-item2>
+    </ol>
+
+  </div>
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        msg: 'Hello Vue',
+        // 标识符不能使用 '-'，所以不能写成 "hover-msg"，要使用驼峰命名
+        hoverMsg: '页面加载于' + new Date().toLocaleString(),
+        seen: true,
+        products: ['小米','三星','苹果'],
+        inputText:'',
+        groceryList: [
+          { id: 0, text: '蔬菜' },
+          { id: 1, text: '奶酪' },
+          { id: 2, text: '随便其它什么人吃的东西' }
+        ]
+      },
+      methods: {
+        reverseMessage: function () {
+          this.msg = this.msg.split('').reverse().join('') 
+        }
+      },
+    })
+嘿
+
+    // 全局组件
+    Vue.component('todo-item',{
+      template: '<li>this is todo item</li>'
+    })
+
+    // 全局组件2
+
+    Vue.component('todo-item2',{
+      props:['todo'],
+      template: '<li>{{todo.text}}</li>'
+    })
+
+    app.products.push('华为')
+
+  
+  </script>
+
+</body>
+</html>
+

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>计算属性之购物车</title>
+</head>
+<body>
+  <div id="app">
+    {{prices}}
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      package1: [{name: 'iphone', price: '5699', count: 2}, 
+                 {name: 'xiaomi', price: '3999', count: 2}],
+
+      package2: [{name: 'guazi', price: '19.9', count: 15},
+                 {name: 'huasheng', price: '29', count: 19}]
+    },
+
+    computed: {
+      prices: function() {
+        var price = 0
+        for(var key in this.$data) {
+          for(var i = 0; i < this.$data[key].length; i ++) {
+            price += this.$data[key][i].price * this.$data[key][i].count
+          }
+        }
+
+        return price
+      }
+    }
+  })
+
+    
+  
+</script>
+  
+</body>
+</html>

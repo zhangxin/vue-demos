@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>数据绑定</title>
+</head>
+<body>
+  <div id="app">
+    {{msg}} <br>
+    {{6 + 6}} <br>
+    {{8 < 2 ? msg : another }} <br>
+    <!-- {{if(8>2) msg}} -->
+    <!-- {{var a = 2}} -->
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  var app = new Vue({
+    // 用来指定页面中已经存在的 DOM 元素，来挂载 VUE 实例
+    el: '#app',
+    // 用来声明应用内需要双向绑定的数据。建议所有数据都放在这里
+    data: {
+      msg: 'Hello Vue',
+      another: 'another'
+    },
+
+    created: function() {
+      // alert('Vue 实例刚刚创建完成，还未挂在挂载')
+    },
+
+    mounted: function() {
+      // alert('Vue 实例刚刚完成挂载')
+    }
+  })
+
+  // console.log(app.$el)
+  // console.log(app.$data)
+  // console.log(app.msg)
+
+</script>
+
+</body>
+</html>

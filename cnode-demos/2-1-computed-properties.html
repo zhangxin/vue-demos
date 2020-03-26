@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>计算属性</title>
+</head>
+<body>
+  <div id="app">
+    不使用计算属性：
+    {{msg.split(',').reverse().join(',')}}
+    <br>
+    使用计算属性：
+    <!-- 计算属性也是属性，所以可以直接使用文本插值的方式双向绑定到页面中 -->
+    {{reverseMsg}}
+    <br>
+    使用方法：
+    <!-- 方法必须以函数调用的方式引入 -->
+    {{reverseMsgUseMethods()}}
+    <br>
+    测试 set 和 get：
+    {{fullName}}
+    <br>
+
+    计算属性-----有缓存：{{getTime}} <br>
+    方法--------无缓存： {{getTimeUseMth()}}
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  var app2 = new Vue({
+    data: {
+      text: '我是 app2 中的数据'
+    }
+  })
+  
+  var app = new Vue({
+    el: '#app',
+    data: {
+      msg: '33, 66, 99',
+      firstName: 'zhang',
+      lastName: 'xin'
+
+    },
+    // 计算属性要以函数的形式写在和 data 平级的 computed 选项内
+    computed: {
+      reverseMsg: function() {
+        // 计算属性也是属性，可以使用 app.yilai 的方法访问到
+        return this.yilai.split(',').reverse().join(',') + '  ' + app2.text
+      },
+      yilai: function() {
+        return this.msg + ',00'
+      },
+      fullName: {
+        get: function() {
+          return this.firstName + ' ' + this.lastName
+        },
+        set: function(value) {
+          var nameArr = value.split(' ')
+          this.firstName = nameArr[0]
+          this.lastName = nameArr[nameArr.length - 1]
+        }
+      },
+
+      getTime: function() {
+        return Date.now()
+      }
+    },
+    methods: {
+      reverseMsgUseMethods: function() {
+        return this.msg.split(',').reverse().join(',') 
+      },
+
+      getTimeUseMth: function() {
+        return Date.now()
+      }
+    },
+  })
+
+  console.log(app.yilai)
+</script>
+</body>
+</html>
