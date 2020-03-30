@@ -5,36 +5,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Class 与 Style 绑定</title>
+
+  <style>
+    .have-border1 {
+      border: 2px solid #222;
+    }
+
+    .bgc-red1 {
+      background-color: red;
+    }
+  </style>
 </head>
 <body>
 
-  <p v-bind:class="className"></p>
-
-  <p v-bind:class="{className1: '',className2: ''}"></p>
   <div id="app">
-    <div :style="styleName"></div>
+    <!-- 对象语法绑定 class -->
+    <div :class="{'have-border1': haveBorder, 'bgc-red1': bgcRed}">
+      HELLO
+    </div>
+    <hr>
+    
+    <!-- 数组语法绑定 class -->
+    <div :class="[hb1, br1]">SECOND</div>
+    <hr>
+    
+    <!-- 对象语法绑定 style -->
+    <div :style="{'background-color': bgc, border: border, fontSize: fontSize + 'px'}">STYLEOBJ</div>
+    <hr>
+
+    <!-- 样式对象绑定 style -->
+    <div :style="styleObj">STYLE-OBJ</div>
+    <hr>
+
+    <!-- 数组语法绑定 style -->
+    <div :style="[styleObj,styleObj2]">STYLE-OBJ-ARRAY</div>
   </div>
 
-  <div :class="[red,blue]"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
   var app = new Vue({
+    el: '#app',
     data: {
+      haveBorder: true,
+      bgcRed: true,
+      active: 'bgc-red1',
+      hb1: 'have-border1',
+      br1: 'bgc-red1',
+    
+      bgc: '#aaa',
+      border: '2px solid',
+      fontSize: 30,
 
-      styleName: {
-        color: 'red',
-        fontSize: '26px',
-        height: '100px'
+      styleObj: {
+        backgroundColor: 'blue',
+        fontSize: '66px',
+        border: '3px solid',
+        borderRadius: '30px'
       },
-      styleObject: {
-      color: 'red',
-      fontSize: '13px',
-      
-      red: 'bgcRed',
-      blue: 'bgcBlue'
 
+      styleObj2: {
+        'background-color': '#333'
+      }
     }
-}
   })
 </script>
 </body>
