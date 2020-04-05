@@ -14,6 +14,17 @@
     .bgc-red1 {
       background-color: red;
     }
+
+    .static {
+      border-radius: 3px;
+      width: 800px;
+      text-align: center;
+    }
+
+    .bgc-yellow {
+      background-color: yellow;
+    }
+
   </style>
 </head>
 <body>
@@ -21,14 +32,30 @@
   <div id="app">
     <!-- 对象语法绑定 class -->
     <div :class="{'have-border1': haveBorder, 'bgc-red1': bgcRed}">
-      HELLO
+      对象语法
     </div>
     <hr>
     
-    <!-- 数组语法绑定 class -->
-    <div :class="[hb1, br1]">SECOND</div>
+    <!-- v-bind:class 指令也可以与普通的 class 属性共存 -->
+    <div class="static" :class="{'have-border1': haveBorder, 'bgc-red1': bgcRed}">对象语法与普通 class 共存</div>
     <hr>
-    
+
+    <!-- 数组语法绑定 class -->
+    <div :class="[hb1, br1]">数组语法</div>
+    <hr>
+
+    <!-- 绑定的数据对象不必内联定义在模板里 -->
+    <div :class="classObj">绑定的数据对象不必内联定义在模板里：这里绑定的是一个在 data 或者计算属性中定义好的对象</div>
+    <hr>
+
+    <!-- 以计算属性的形式返回 classObj -->
+    <div :class="computedClassObj">我绑定的 class 是用计算属性返回的</div>
+    <hr>
+
+    <!-- 数组和对象混用 -->
+    <div :class="[{'bgc-yellow': bgYellow},hb1]">数组和对象的混合使用</div>
+    <hr>
+
     <!-- 对象语法绑定 style -->
     <div :style="{'background-color': bgc, border: border, fontSize: fontSize + 'px'}">STYLEOBJ</div>
     <hr>
@@ -49,10 +76,15 @@
     data: {
       haveBorder: true,
       bgcRed: true,
+      bgYellow: false,
       active: 'bgc-red1',
       hb1: 'have-border1',
       br1: 'bgc-red1',
-    
+      classObj: {
+        'have-border1': true,
+        'bgc-red1': false
+      },
+      
       bgc: '#aaa',
       border: '2px solid',
       fontSize: 30,
@@ -66,6 +98,16 @@
 
       styleObj2: {
         'background-color': '#333'
+      },
+
+    },
+
+    computed: {
+      computedClassObj: function() {
+        return {
+          'have-border1': this.haveBorder || this.bgcRed,
+          'bgc-yellow': true
+        }
       }
     }
   })
