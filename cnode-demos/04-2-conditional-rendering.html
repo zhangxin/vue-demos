@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>条件渲染</title>
+</head>
+<body>
+  <div id="app">
+    <!-- v-if, v-else-if, v-else 的使用 -->
+    您这次的成绩是 {{score}} 分
+    <p v-if="score >= 90">优秀</p>
+    <p v-else-if="score >= 80">良好</p>
+    <p v-else-if="score >= 60">及格</p>
+    <p v-else="score < 60">不及格</p>
+
+    <!-- template 实现分组渲染，template 元素本身不会被渲染 -->
+    <template v-if="tem">
+      <hr>
+      两个横线之间的可以同时切换是否显示
+      <h1">Title</h1>
+      <p>Paragraph 1</p>
+      <p>Paragraph 2</p>
+      <hr>
+    </template>
+
+    <!-- Vue 在渲染元素时 ，出于效率考虑，会尽可能地复用已有的元素而非重新渲染 -->
+    <p>
+      这里会复用一些元素
+    </p>
+    <div v-if="type === 'username'">
+      <label for="name">username:</label>
+      <input type="text" id="name" placeholder="请输入用户名">
+    </div>
+    
+    <div v-else>
+      <label for="email">email:</label>
+      <input type="text" id="email" placeholder="请输入邮件"> 
+    </div>
+    <button @click="toggleInputType1">点击切换输入框</button>
+    <hr>
+
+    <!-- 加 唯一的key 可以禁止一个元素复用 -->
+    <p>这里的元素不会复用：</p> 
+    <div v-if="type2 === 'username'">
+      <label for="name">username:</label>
+      <input type="text" id="name" placeholder="请输入用户名" key="type-username">
+    </div>
+    
+    <div v-else>
+      <label for="email">email:</label>
+      <input type="text" id="email" placeholder="请输入邮件" key="type-email"> 
+    </div>
+    <button @click="toggleInputType2">点击切换输入框</button>
+    <hr>
+    
+    <!-- v-show 的使用 -->
+    <p v-show="isShow">我是 v-show，我可以切换元素的 CSS 属性 display</p>
+  </div>
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        score: 90,
+        tem: true,
+        type: 'username',
+        type2: 'username',
+        isShow: true
+      },
+      methods: {
+        toggleInputType1: function() {
+          this.type = (this.type === 'username') ? 'email':'username'
+        },
+        toggleInputType2: function() {
+          this.type2 = (this.type2 === 'username') ? 'email':'username'
+        }
+      }
+    })
+
+</script>
+</body>
+</html>
