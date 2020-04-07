@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数组检测更新</title>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="(fruit, index) in fruitArr">{{index}}---{{fruit}}</li>
+    </ul>
+
+    <div class="btn">
+      <button @click="vPush">尾部添加水果</button>
+      <button @click="vPop">删除尾部水果</button>
+      <button @click="vShift">删除头部水果</button>
+      <button @click="vUnshift">头部添加水果</button>
+      <button @click="vSort">点我排序</button>
+      <button @click="vReverse">反转</button>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      fruitArr: ['苹果','大香蕉','酸甜橘子','美味的蓝莓']
+    },
+
+    methods: {
+      vPush: function() {
+        this.fruitArr.push('end火龙果')
+      },
+      vPop: function() {
+        this.fruitArr.pop()
+      },
+      vShift: function() {
+        this.fruitArr.shift()
+      },
+      vUnshift: function() {
+        this.fruitArr.unshift('top金色橙子')
+      },
+      vSort: function() {
+        this.fruitArr.sort(function(a,b) {
+          return b.length - a.length
+        })
+      },
+      vReverse: function() {
+        this.fruitArr.reverse()
+      }
+    }
+    
+  })
+</script>
+</body>
+</html>

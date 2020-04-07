@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>列表渲染</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 用 v-for 指令基于一个数组来渲染一个列表 -->
+    <p>遍历一个数组：</p>
+    <ul>
+      <li v-for="fruit in fruitArr">{{fruit}}</li>
+    </ul>
+    <hr>
+
+    <!-- v-for 还支持一个可选的第二个参数，即当前项的索引。in 可以改成 of -->
+    <p>遍历一个数组，并加上索引：</p>
+    <ul>
+      <li v-for="(fruit, index) in fruitArr">{{index}}---{{fruit}}</li>
+    </ul>
+    <hr>
+
+    <!-- 可以用 v-for 来遍历一个对象的属性 -->
+    <p>遍历一个对象的属性：</p>
+    <ul>
+      <li v-for="value in obj">{{value}}</li>
+    </ul>
+    <hr>
+
+    <!-- 可以提供第二个的参数为 property 名称 (也就是键名) -->
+    <p>遍历一个对象的属性，带键名：</p>
+    <ul>
+      <li v-for="(value, key) in obj">{{key}}---{{value}}</li>
+    </ul>
+    <hr>
+
+    <!-- v-for 来遍历一个对象的属性,带上索引和 key。顺序是 vki -->
+    <p>遍历一个对象的属性，带键名和索引：</p>
+    <ul>
+      <li v-for="(value, key, index) in obj">{{index}}---{{key}}---{{value}}</li>
+    </ul>
+    <hr>
+
+
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      fruitArr: ['苹果','芒果','香蕉','橘子','蓝莓'],
+      obj: {
+        title: 'How to do lists in Vue',
+        author: 'Jane Doe',
+        publishedAt: '2019-06-18'
+      }
+    }
+  })
+</script>
+</body>
+</html>
