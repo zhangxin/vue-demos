@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件基础之组件使用方法</title>
+</head>
+
+<body>
+  <div id="app">
+    <table>
+      <tbody is="my-component"></tbody>
+    </table>
+
+    <my-component22></my-component22>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      components: {
+        'my-component': {
+          template: '<div>是局部组件</div> '
+        }
+      }
+    })
+
+
+    Vue.component('my-component22', {
+      template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+    })
+  </script>
+</body>
+
+</html>
