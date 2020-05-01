@@ -7,27 +7,86 @@
   <title>计算属性</title>
 </head>
 <body>
-
+  <!-- 计算属性就是一个属性，可以跟普通属性那样使用文本插值的方法绑定 dom 元素 -->
   <div id="app">
     <p>{{msg}}</p>
-    {{reverseMessage}}
+    <p>使用计算属性反转字符串：{{reverseMessage}}</p>
+    <hr>
+    <h2>计算属性是依赖缓存的，页面刷新计算属性不变</h2>
+    <p>计算属性得到的时间：{{nowTime}}</p>
+    <p>使用方法得到的时间：{{funNowTime()}}</p>
+    <button @click="refresh">反转字符串，刷新页面</button>
+    <hr>
+    {{fullName}}
+    <hr>
+    <h2>计算属性可以依赖其他计算属性和其他 vue 实例的属性</h2>
+    {{yilai}}
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script>
-    var app = new Vue({
-      el: '#app',
-      data: {
-        msg: 'Hello world'
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  var app2 = new Vue({
+    data:{
+      msg: '我是 app2 的数据'
+    }
+  })
+  var app = new Vue({
+    el: '#app',
+    data: {
+      msg: 'Hello world',
+      firstName: 'zhang',
+      lastName: 'xin'
+    },
+    computed: {
+      reverseMessage: function() {
+        return this.msg.split('').reverse().join('')
       },
-      computed: {
-        reverseMessage: function (){
-          return this.msg.split('').reverse().join('')
+      nowTime: function() {
+        return Date.now()
+      },
+    
+
+      fullName: {
+        // getter
+        get: function () {
+          return this.firstName + ' ' + this.lastName
+        },
+        // setter
+        set: function (newValue) {
+          var names = newValue.split(' ')
+          this.firstName = names[0]
+          this.lastName = names[names.length - 1]
         }
       },
-    })
 
-    addEventListener
-  </script>
+      yilai: function() {
+        return this.fullName + ' ' + this.reverseMessage + app2.msg
+      }
+
+    },
+    methods: {
+      funNowTime: function() {
+        return Date.now()
+      },
+      refresh: function() {
+        this.msg = this.msg.split('').reverse().join('')
+      }
+    },
+
+    // watch 侦听属性的语法较为啰嗦
+    // watch: {
+    //   firstName: function (val) {
+    //     this.fullName = val + ' ' + this.lastName
+    //   },
+    //   lastName: function (val) {
+    //     this.fullName = this.firstName + ' ' + val
+    //   }
+    // }
+      
+  })
+  // 计算属性也可以像普通属性那样直接访问
+  console.log(app.reverseMessage)
+</script>
 </body>
 </html>
