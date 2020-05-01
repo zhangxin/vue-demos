@@ -9,17 +9,26 @@
 <body>
 
   <div id="app">
+    <!-- {{}} 文本插值 -->
     <p>{{msg}}</p>
-    <p v-once>{{msg}}</p>
+    <!-- v-once 只渲染一次 -->
+    <p v-once>{{onceDate}}</p>
 
     <!-- v-html 的作用 -->
-    <p>未使用 v-html：{{rawHtml}}</p>
-    <div>
-      使用 v-html：<p v-html="rawHtml"></p>
-    <span v-html="rawHtml"></span>
+    <p>未使用 v-html 指令：{{rawHtml}}</p>
 
+    <p>使用 v-html 指令：<span v-html="rawHtml"></span></p>
+
+    <!-- 模板表达式。只能使用单行表达式。注意这些都是 js 代码，不是 html。-->
+    <div v-bind:id="'model-express' + id">
+      {{ number + 1 }}
+      <br>
+      {{ ok ? 'YES' : 'NO' }}
     </div>
-
+    <hr>
+    <h2>指令</h2>
+    <p v-if="ok">我使用了 v-if 指令</p>
+    <button v-on:click="changeOk">点我切换是否显示上面</button>
   </div>
   
 
@@ -29,8 +38,17 @@
       el: '#app',
       data: {
         msg: 'Hello Vue',
-        rawHtml: '<span style="color: greenyellow;">这里是 黄绿 色</span>'
-
+        onceDate:'只渲染一次，运行 app.onceDate="xxx" 无效',
+        rawHtml: '<span style="color: greenyellow;">这里是 黄绿 色</span>',
+        number: 10,
+        id: 1,
+        ok: true
+      },
+      methods: {
+        changeOk: function() {
+          this.ok = !this.ok
+          alert('ok的值是：' + this.ok)
+        }
       }
       
     })
