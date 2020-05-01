@@ -7,7 +7,40 @@
   <title>Vue 实例</title>
 </head>
 <body>
-  <!-- 每一个 Vue 应用都是通过 Vue 函数创建的一个 Vue 实例开始的 -->
+  <!-- 每一个 Vue 应用都是通过 Vue 函数创建的一个新的 Vue 实例（根实例）开始的 -->
+  <!-- 一个 Vue 应用是由一个通过 new Vue 创建的根 Vue 实例，以及可选的嵌套的、可复用的组件树组成 -->
   <!-- 所有的 Vue 组件都是 Vue 实例，并且接受相同的选项对象(一些根实例特有的选项除外) -->
+  <!-- 只有 Vue 实例被创建时就添加进 data 的数据才是响应式的 -->
+
+  <div id="app">
+    <!-- 文本插值进行数据绑定 -->
+    {{msg}}
+    <hr>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+  var vueData = {
+    msg: 'hello vue'
+  }
+  var app = new Vue({
+    el: '#app',
+    data: vueData,
+    created: function() {
+      alert('创建完毕还未挂载')
+    },
+    mounted: function() {
+      alert('挂载完毕')
+    },
+    beforeupdate: function() {
+      alert('数据更新')
+    }
+  })
+  // 通过 . 拿到 vue 实例中 data 的数据
+  console.log(vueData.msg === app.msg)
+  // 通过 $ 拿到 vue 实例本身的属性
+  console.log(app.$data === vueData)
+  
+</script>
 </body>
 </html>
