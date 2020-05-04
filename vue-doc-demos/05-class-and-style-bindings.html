@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>class 和 style 的绑定</title>
+  <style>
+    .static {
+      padding: 10px;
+      margin-top: 20px;
+    }
+
+    .bg-red {
+      background-color: red;
+    }
+
+    .have-border {
+      border: 2px solid yellow;
+    }
+
+    .bg-yellow {
+      background-color: yellow;
+    }
+
+    .border-red {
+      border: 3px solid red;
+    }
+
+    .active {
+      font-weight: bold;
+      font-size: 30px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <!-- 内联方式 对象语法绑定 class -->
+  <div class="static" v-bind:class="{'bg-red': bgRed,'have-border':haveBorder}">
+    内联方式 对象语法绑定 class
+  </div>
+
+  <!-- 数据对象法绑定 -->
+  <div class="static" v-bind:class="classObj">数据对象法绑定</div>
+
+  <!-- 绑定返回对象的计算属性，功能更强大 -->
+  <div class="static" v-bind:class="computedClassObj">绑定返回对象的计算属性，功能更强大。
+    这里的样式是字体变大
+  </div>
+
+    <!-- 内联数组语法，背景红 -->
+    <div class="static" v-bind:class="[arrayBgRed]">内联数组语法，背景红</div>
+    
+    <!-- 数组和对象语法结合，背景黄 红边框-->
+    <div class="static" v-bind:class="[arrayBgRed,arrayHaveBorder,{active: isActive}]">
+      数组和对象语法结合，背景红 黄边框  字变大
+    </div>
+    <hr>
+
+    <!-- 内联对象语法 -->
+    <div v-bind:style="{fontSize:fontSize + 'px',backgroundColor: bgColor}">
+      内联对象语法绑定样式，字大，背景灰
+    </div>
+
+    <!-- 双向绑定对象语法绑定内联样式 -->
+    <div v-bind:style="styleObj">
+      双向绑定对象语法内联样式绑定，字变白，不大，背景蓝
+    </div>
+
+    <!-- 数组绑定内联样式基本用不到 不写了 -->
+</div>
+  
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data:{
+      bgRed: true,
+      haveBorder: true,
+      isActive: true,
+      error: false,
+      classObj: {
+        'bg-yellow': true,
+        'border-red': true
+      },
+      arrayBgRed: 'bg-red',
+      arrayHaveBorder: 'have-border',
+      fontSize: 50,
+      bgColor: '#ccc',
+
+      styleObj: {
+        'font-size': '20px',
+        backgroundColor: 'blue',
+        color: 'white'
+
+      }
+    },
+    computed: {
+      computedClassObj: function() {
+        return {
+          active: this.isActive && !this.error
+        }
+      }
+    }
+  })
+</script>
+</body>
+</html>
