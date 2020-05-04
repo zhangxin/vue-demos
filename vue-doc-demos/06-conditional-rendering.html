@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>条件渲染</title>
+</head>
+<body>
+  <div id="app">
+    <div v-if="seen">我由 v-if 控制是否显示</div>
+    <button v-if="seen" v-on:click="toggle">点我隐藏</button>
+    <button v-else v-on:click="toggle">点我显示</button>
+
+    <!-- 在 <template> 元素上使用 v-if 条件渲染分组 -->
+    <h2>使用 template 一次切换一组元素</h2>
+    <template v-if="seen">
+      <h1>Title</h1>
+      <p>Paragraph 1</p>
+      <p>Paragraph 2</p>
+    </template>
+
+    <!-- key 的作用 -->
+    <h2>不使用key</h2>
+    <template v-if="loginType">
+      <label for="name" >name</label>
+      <input type="text" placeholder="name">
+    </template>
+    <template v-else>
+      <label for="name" >email</label>
+      <input type="text" placeholder="email">
+    </template>
+    <button @click="toggleType">切换类型</button>
+
+    <!-- 使用key -->
+    <h2>使用key，key 对 template 不起作用</h2>
+    <template v-if="loginType" >
+      <label for="name" >name</label>
+      <input type="text" placeholder="name" key="name">
+    </template>
+    <template v-else>
+      <label for="name" >email</label>
+      <input type="text" placeholder="email" key="email">
+    </template>
+    <button @click="toggleType">切换类型</button>
+
+
+    <!-- v-show -->
+    <h2>v-show 是切换元素的 display</h2>
+    <div v-show="show">v-show</div>
+    <button @click="toggleShow">切换显示</button>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      seen: true,
+      a:false,
+      loginType: true,
+      show: true
+    },
+    methods: {
+      toggle: function () {
+        this.seen = !this.seen
+      },
+      toggleType: function () {
+        this.loginType = !this.loginType
+      },
+      toggleShow: function() {
+        this.show = !this.show
+      }
+    }
+  })
+</script>
+</body>
+</html>
