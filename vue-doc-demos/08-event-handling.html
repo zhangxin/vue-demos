@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>事件处理</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 直接绑定方法 -->
+    <p>你已经点击了 {{count}} 次</p>
+    <button @click="clickAdd">+1</button>
+
+    <!-- 内联一个方法调用 -->
+    <h2>内联一个方法调用 </h2>
+    <button @click=say('hi')>say hi</button>
+    <button @click=say('what')>say what</button>
+
+    <!-- 事件修饰符 -->
+    <h2>事件修饰符，这里只演示 v-once</h2>
+    <ul>
+      <li v-for="modifier in eventModifiersList">{{modifier}}</li>
+    </ul>
+    <p>你已经点击了 {{count}} 次</p>
+    <button @click.once="clickAdd">+1</button>
+    <h2>按键码使用，注意已被废除，有些浏览器不支持</h2>
+    <input v-on:keyup.13="submit">
+    <!-- 系统修饰符 -->
+    <h3>系统修饰符，其实就是类似 ctrl c 这样的快捷键</h3>
+    <input v-on:keyup.ctrl.c="say(hi)">
+  </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      count: 0,
+      eventModifiersList:[
+      '.stop',
+      '.prevent',
+      '.capture',
+      '.self',
+      '.once',
+      '.passiv'
+      ]
+    },
+    methods: {
+      clickAdd:function(event) {
+        this.count ++
+        console.log(event)
+      },
+      say:function(msg) {
+        alert(msg)
+      }
+    }
+  })
+</script>
+</body>
+</html>
