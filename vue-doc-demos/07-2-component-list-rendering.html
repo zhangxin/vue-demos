@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>列表渲染---组件</title>
+</head>
+<body>
+  <div id="app">
+    <form @submit.prevent="addTodo">
+      <input type="text" v-model="nodeText">
+      <button>添加</button>
+    </form>
+    <ul>
+      <li
+        is="todo-item"
+        v-for="(todo, index) in todos"
+        v-bind:title="todo.title"
+        v-bind:key="todo.id"
+        v-on:remove="todos.splice(index, 1)"
+      ></li>
+    </ul>
+  </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+  Vue.component('todo-item',{
+    template:`
+    <li>
+      {{title}}
+      <button @click="$emit(\'remove\')">remove</button>
+    </li>
+    `,
+    props:['title']
+  })
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      nodeText:'',
+      todos:[
+        {
+          id:1,
+          title:'把碗洗了'
+        },
+        {
+          id:2,
+          title:'晾衣服'
+        },
+        {
+          id:3,
+          title:'拖地'
+        }
+      ],
+      nextNode:4
+    },
+    methods: {
+      addTodo:function(){
+        this.todos.push({
+          id:this.nextNode ++,
+          title:this.nodeText
+        })
+
+        this.nodeText = ''
+      }
+    }
+  })
+</script>
+</body>
+</html>
