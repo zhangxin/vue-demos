@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>列表渲染</title>
+</head>
+<body>
+  <div id="app">
+    <!-- v-for 渲染数组 -->
+    <h1>v-for 渲染数组</h1>
+    <ul>
+      <li v-for="item in arr1">{{item.msg}}</li>
+    </ul>
+
+    <!-- v-for 支持双参数，即索引项。可以访问父作用域数据 -->
+    <h1>v-for 支持双参数，即索引项。可以访问父作用域数据</h1>
+    <ul>
+      <li v-for="(item,index) in arr1">{{index}}---{{parent}}---{{item.msg}}</li>
+    </ul>
+
+    <!-- v-for 遍历对象 -->
+    <h1>v-for 遍历对象</h1>
+    <ul>
+      <li v-for="value in obj1">{{value}}</li>
+    </ul>
+
+    <h1>还可以提供键名和index，顺序是 vki</h1>
+    <ul>
+      <li v-for="(value,key,index) in obj1">{{index}}---{{key}}---{{value}}</li>
+    </ul>
+
+    <!-- 数组更新方法 -->
+    
+    <h1>数组更新方法对 v-for 有影响，使用下列方法操作 app.arr1 可以看到效果</h1>
+    <ul>
+      <li v-for="fun in funArr">{{fun}}</li>
+    </ul>
+
+    <!-- 双层循环不能使用计算属性，只能使用方法，因为要传递数据 -->
+    <ul v-for="set in sets">
+      <li v-for="n in even">{{ n }}</li>
+    </ul>
+  </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      parent:'我是父作用域数据',
+      arr1:[
+        {msg:'hello'},
+        {msg:'vue'}
+      ],
+      funArr: [
+        'push()',
+        'pop()',
+        'shift()',
+        'unshift()',
+        'splice()',
+        'sort()',
+        'reverse()'
+        ],
+
+      obj1:{
+        title: '怎么学好 vue',
+        coding: '跟着教程写代码',
+        watch: '去 b 站看视频'
+      },
+
+      sets: [[ 1, 2, 3, 4, 5 ], [6, 7, 8, 9, 10]]
+    },
+    methods: {
+      even: function (numbers) {
+        return numbers.filter(function (number) {
+          return number % 2 === 0
+        })
+      }
+    }
+  })
+</script>
+</body>
+</html>
