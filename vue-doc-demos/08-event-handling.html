@@ -25,9 +25,20 @@
     <button @click.once="clickAdd">+1</button>
     <h2>按键码使用，注意已被废除，有些浏览器不支持</h2>
     <input v-on:keyup.13="submit">
-    <!-- 系统修饰符 -->
-    <h3>系统修饰符，其实就是类似 ctrl c 这样的快捷键</h3>
+    <!-- 系统修饰符，共四个 -->
+    <h3>系统修饰符，其实就是类似 ctrl c 这样的快捷键组合，共四个</h3>
+    <h3>不是精确控制，只要按下的键有 ctrl 和 c 就会触发事件，可以有其他三个修饰符键</h3>
     <input v-on:keyup.ctrl.c="say(hi)">
+    <ul>
+      <li>win</li>
+      <li>alt</li>
+      <li>ctrl</li>
+      <li>shift</li>
+    </ul>
+
+    <!-- 使用 .exact 精确控制 -->
+    <h3>精确控制，有且只有按下的系统修饰符是 ctrl 且不包括其他三个修饰符 和 c 键时才会触发事件</h3>
+    <input v-on:keyup.ctrl.exact="say(hi)">
   </div>
 
 
