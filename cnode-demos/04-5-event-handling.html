@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>事件处理</title>
+</head>
+<body>
+<div id="app">
+  <h3>方法需要参数，绑定事件不加括号</h3>
+  <button @click="add1">{{num1}}</button>
+  <h3>方法需要参数，绑定事件加括号无参数</h3>
+  <button @click="add2()">{{num2}}</button>
+  <h3>方法需要参数，绑定事件正常传参</h3>
+  <button @click="add3(3)">{{num3}}</button>
+  <h3>使用 $event 传入原生 DOM 事件</h3>
+  <button @click="testEvent($event)">点我</button>
+  <h3>事件修饰符</h3>
+  <h4>什么修饰符都不加</h4>
+  <div class="wrap" @click="divClick" style="width: 100px;height: 100px;background: #aaa;">
+    <button @click="btnClick">点我一下</button>
+  </div>
+
+  <h4>给 button 加 .stop，阻止事件冒泡</h4>
+  <div class="wrap" @click="divClick" style="width: 100px;height: 100px;background: #aaa;">
+    <button @click.stop="btnClick">点我一下</button>
+  </div>
+
+  <h4>给 div 加 .self，点击 button 不会触发 divClick 事件</h4>
+  <div class="wrap" @click.self="divClick" style="width: 100px;height: 100px;background: #aaa;">
+    <button @click="btnClick">点我一下</button>
+  </div>
+
+  <h4>.once 只执行一次</h4>
+  <button @click.once="btnClick">我只执行一次，不信你试试</button>
+
+  <h4>.prevent 阻止默认事件</h4>
+  <form action="" @submit.prevent="onSubmit" style="border: 1px solid;margin-top: 20px;">
+    <input type="text">
+    <button>提交</button>
+  </form>
+
+  <h3>键盘修饰符</h3>
+  <input type="text" @keyup.enter="keyupFun">
+  <h4>按键码，已废除</h4>
+  <input type="text" @keyup.13="keyupFun">
+  
+  <h3>系统修饰符</h3>
+  <h4>ctrl + c，不是精确的系统修饰符组合，同时按下 win shift alt 也会触发事件</h4>
+  <input type="text" @keyup.ctrl.c="keyupFun2">
+
+  <h4>ctrl + c，精确的系统修饰符组合，同时按下 win shift alt 不会触发事件，但是可以按下不是这三个的键</h4>
+  <input type="text" @keyup.exact.ctrl.c="keyupFun2">
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+var app = new Vue({
+  el:'#app',
+  data: {
+    num1:0,
+    num2:0,
+    num3:0,
+  },
+  methods: {
+    add1: function(count) {
+      this.num1 += count
+    },
+    add2: function(count) {
+      this.num2 += count
+    },
+    add3: function(count) {
+      this.num3 += count
+    },
+    testEvent: function(event) {
+      alert(event.target.tagName)
+    },
+    btnClick: function() {
+      alert('我是 button')
+    },
+    divClick: function() {
+      alert('我是 div')
+    },
+    onceFun: function() {
+      alert('我就执行一次')
+    },
+    onSubmit: function() {
+      alert('页面不刷新啦')
+    },
+    keyupFun: function() {
+      alert('enter 被按下了')
+    },
+    keyupFun2: function() {
+      alert('ctrl 和 c 被按下了')
+    }
+  }
+})
+</script>
+</body>
+</html>
