@@ -84,6 +84,19 @@
     <hr>  
 
     <h2>绑定一个动态的值</h2>
+    <label for="activeValueRadio">1</label>
+    <input type="radio" :value="activeRadio" v-model="pickedActiveRadio">
+     现在选中的是 --------- {{pickedActiveRadio}}
+
+    <h2>修饰符</h2>
+    <h3>lazy</h3>
+    <input type="text" v-model.lazy="lazyStr"> ----------- {{lazyStr}}
+    <h3>trim</h3>
+    有 trim：<input type="text" v-model.trim="trimStr"> ----------- {{trimStr.length}}
+    <br>
+    无 trim：<input type="text" v-model="noTrimStr"> ----------- {{noTrimStr.length}}
+    <h3>number</h3>
+    <input type="text" v-model.number="numStr"> -------------- {{typeof numStr}}
 
   </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -98,7 +111,13 @@
       singleCheckbox: true,
       checkedArray: [],
       singleSelection: '',
-      multipleSelection: []
+      multipleSelection: [],
+      activeRadio: '我是 radio 绑定的动态值',
+      pickedActiveRadio:'',
+      lazyStr: '',
+      trimStr: '',
+      noTrimStr: '',
+      numStr: ''
     }
   })
 </script>
