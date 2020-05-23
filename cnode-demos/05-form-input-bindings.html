@@ -13,9 +13,10 @@
     <input type="text" v-model="textMsg"> <br> 
     输入了------{{textMsg}}
     <h3>textarea</h3>
-    <!-- Vue 会忽略 textarea 中的默认值 -->
+    <!-- Vue 会忽略 textarea 中的原始值 -->
     <textarea cols="30" rows="3" v-model="textareaMsg">dsdadsasdas</textarea> <br>
     输入了------{{textareaMsg}}
+    <hr>
 
     <h2>单选按钮</h2>
     <h3>单个单选按钮，只能用 v-bind</h3>
@@ -24,20 +25,66 @@
     <input type="radio" id="dogg1" value="狗蛋" :checked="singleRadio">
 
     <h4>用 v-model</h4>
-    <h5>这里 singleRadio 的值为 true，却没有被选中。但是选中这个单选按钮，singleRadio 的值会改变</h5>
+    <h5>这里 singleRadio 的值为 true，下面的单选按钮却没有被选中。但是选中这个单选按钮，singleRadio 的值变为 value 的值</h5>
     <label for="dogg2">狗蛋</label>
     <input type="radio" id="dogg2" value="狗蛋" v-model="singleRadio">
     singleRadio 的值是 ------- {{singleRadio}}
 
+    <h3>多个单选按钮。可以用 v-model 绑定一个字符串，哪个按钮被选，字符串的值就被赋为哪个单选按钮的 value</h3>
+    <label for="cat1">猫蛋</label>
+    <input type="radio" name="radioChecks" id="cat1" value="猫蛋" v-model="multipleRadio">
 
-    <h2>单个多选按钮 用 v-bind 或者 v-model 都可</h2>
-    <h3>v-bind</h3>
+    <label for="cat2">狗蛋</label>
+    <input type="radio" name="radioChecks" id="cat2" value="狗蛋" v-model="multipleRadio">
+
+    <label for="cat3">翠花</label>
+    <input type="radio" name="radioChecks" id="cat3" value="翠花" v-model="multipleRadio">
+    <br> 
+    现在被选中的是 ------------------- {{multipleRadio}}
+    <hr>
+
+    <h2>多选按钮</h2>
+    <h3>单个多选按钮 直接用 v-bind 或者 v-model 绑定一个布尔值都可</h3>
+    <h4>v-bind</h4>
     <label for="dogg3">狗蛋</label>
     <input type="checkbox" id="dogg3" value="狗蛋" :checked="singleCheckbox">
-    <h3>v-model</h3>
+    <h4>v-model</h4>
     <label for="dogg4">狗蛋</label>
     <input type="checkbox" id="dogg4" value="狗蛋" v-model="singleCheckbox">
     singleCheckbox 的值是 ------ {{singleCheckbox}}
+
+    <h3>多个多选按钮，用 v-model 绑定一个 vue 中定义好的数组</h3>
+    <label for="cuihua1">狗蛋</label>
+    <input type="checkbox" id="cuihua1" value="狗蛋" v-model="checkedArray">
+    <label for="cuihua2">猫蛋</label>
+    <input type="checkbox" id="cuihua2" value="猫蛋" v-model="checkedArray">
+    <label for="cuihua3">翠花</label>
+    <input type="checkbox" id="cuihua3" value="翠花" v-model="checkedArray">
+    checkedArray 的值是 ------ {{checkedArray}}
+    <hr>
+
+    <h2>选择框</h2>
+    <h3>单选选择框</h3>
+    <select name="singleSelection" v-model="singleSelection">
+      <option value="猫蛋">猫蛋</option>
+      <option value="狗蛋">狗蛋</option>
+      <option value="翠花">翠花</option>
+    </select>
+    <br>
+    现在选中的是 ---------- {{singleSelection}}
+    
+    <h3>多选选择框</h3>
+    <select name="singleSelection" v-model="multipleSelection" multiple>
+      <option value="猫蛋">猫蛋</option>
+      <option value="狗蛋">狗蛋</option>
+      <option value="翠花">翠花</option>
+    </select>
+    <br>
+    现在选中的是 ---------- {{multipleSelection}}
+    <hr>  
+
+    <h2>绑定一个动态的值</h2>
+
   </div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
@@ -47,7 +94,11 @@
       textMsg: '',
       textareaMsg: '',
       singleRadio: true,
+      multipleRadio: '',
       singleCheckbox: true,
+      checkedArray: [],
+      singleSelection: '',
+      multipleSelection: []
     }
   })
 </script>
