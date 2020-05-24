@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件使用的奇技淫巧</title>
+</head>
+
+<body>
+  <div id="app">
+    <h2>组件命名必须使用小写字母加 - 的形式，不能使用驼峰</h2>
+    <my-component1></my-component1>
+
+    <!-- 这么使用会报错。因为 html 是不分大小写的，下面相当于 <mycomponent2></mycomponent2> -->
+    <!-- <myComponent2></myComponent2> -->
+    <hr>
+
+    <h2>template 中的内容必须要由一个 DOM 元素（即根元素）包裹，有且只能有一个</h2>
+    <h3>下面是两个错误实例，详情看源码</h3>
+    <!-- <my-component3></my-component3> -->
+    <!-- <my-component4></my-component4> -->
+    <hr>
+
+    <h2>组件的 data 的特性</h2>
+    <h3>Vue 实例 data 中定义的 count，两个按钮相互影响</h3>
+    <button @click="add">{{count}}</button>
+    <button @click="add">{{count}}</button>
+    <h3>组件 data 中定义的 count，两个按钮互不影响</h3>
+    <btn-component></btn-component>
+    <btn-component></btn-component>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        count: 1
+      },
+      methods: {
+        add: function() {
+          this.count += 1
+        }
+      },
+      components: {
+        'my-component1': {
+          template: '<div>我是 app 中注册的一个局部组件</div>'
+        },
+        // 这是错误的
+        'myComponent2': {
+          template: '<div>我是 app 中注册的第二个局部组件</div>'
+        },
+        // 错误实例1：template 里面有两个 DOM 元素
+        'my-component3': {
+          template: '<div>我是 app 中注册的一个局部组件</div> <span></span>'
+        },
+        // 错误示例2：template 里面没有 DOM 元素
+        'my-component4': {
+          template: '我是 app 中注册的一个局部组件'
+        },
+        'btn-component': {
+          template: '<button @click="add">{{count}}</button>',
+          data: function() {
+            return {
+              count: 1
+            }
+
+          },
+          methods: {
+            add: function() {
+              this.count += 1
+            }
+          }
+        }
+      }
+    })
+
+  </script>
+</body>
+
+</html>
