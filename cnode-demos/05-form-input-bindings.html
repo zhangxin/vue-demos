@@ -84,9 +84,16 @@
     <hr>  
 
     <h2>绑定一个动态的值</h2>
+    <h3>单选按钮</h3>
     <label for="activeValueRadio">1</label>
     <input type="radio" :value="activeRadio" v-model="pickedActiveRadio">
      现在选中的是 --------- {{pickedActiveRadio}}
+
+     <h3>复选框的一个重要用法，true-value 和 false-value。选中代表 true-value，反之为 false-value</h3>
+     <h4>下面用的是固定值，其实使用动态值是一样的</h4>
+     <input type="checkbox" name="username" true-value="小米" false-value="华为" v-model="phone"> 
+    现在选中的是 -------- {{phone}}
+     <hr>
 
     <h2>修饰符</h2>
     <h3>lazy</h3>
@@ -117,7 +124,8 @@
       lazyStr: '',
       trimStr: '',
       noTrimStr: '',
-      numStr: ''
+      numStr: '',
+      phone:''
     }
   })
 </script>
