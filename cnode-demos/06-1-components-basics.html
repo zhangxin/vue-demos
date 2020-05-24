@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>组件基础之组件使用方法</title>
+</head>
+
+<body>
+  <div id="bpp">
+    <h2>bpp 使用全局注册组件</h2>
+    <my-component1></my-component1>
+  </div>
+
+  <div id="app">
+    <h2>app 使用全局注册组件</h2>
+    <my-component1></my-component1>
+    <h3>全局注册的优缺点</h3>
+    <dt>优点</dt>
+    <dd>所有的 vue 实例都可以使用</dd>
+    <dt>缺点</dt>
+    <dd>权限太大，容错率降低。可以类比为全局变量</dd>
+    <hr>
+
+    <h2>局部注册的组件</h2>
+    <app-component></app-component>
+    <hr>
+
+    <h2>is 属性的使用</h2>
+    <p>vue组件的模板在某些情况下会受到 html 标签的限制，
+      比如 &lt;table&gt; 中只能还有 &lt;tr&gt; , &lt;td&gt; 这些元素，
+      所以直接在 &lt;table&gt; 中使用组件是无效的，此时可以使用 is 属性来挂载组件
+      </p>
+      <h3>下面这个元素并没有正确的渲染进table</h3>
+      <table>
+        <my-component2></my-component2>
+      </table>
+      <h3>使用 is 属性正确渲染</h3>
+      <table>
+        <tbody is="my-component2"></tbody>
+      </table>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    // 组件注册之全局注册
+    Vue.component('my-component1', {
+      template: '<div>我是{{msg}}的一个组件</div>',
+      data: function() {
+        return {
+          msg: '全局注册'
+        }
+      }
+    })
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      components: {
+        'app-component': {
+          template: '<div>我是 app {{msg}}的组件</div> ',
+          data: function() {
+            return {
+              msg: '局部注册'
+            }
+          }
+        }
+      }
+    })
+
+    var bpp = new Vue({
+      el: '#bpp'
+    })
+
+  </script>
+</body>
+
+</html>
