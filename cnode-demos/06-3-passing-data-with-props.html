@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>使用 props 向子组件传递数据</title>
+</head>
+
+<body>
+  <div id="app" :style="styleObj">
+    我是父组件
+    <child msg="我是父组件传来的固定数据" :style="styleObj"></child>  
+    <h3>给子组件传入一个固定值的时候，加不加 v-bind 有区别</h3>
+    <h3>加了 v-bind 的时候，会把传入的数据当作本来的数据类型来处理</h3>
+    <h3>不加 v-bind 的时候，会把传入的数据当作字符串来处理</h3>
+    <child2 msg="[1, 2, 3]" :style="styleObj"></child2>  
+    <child2 :msg="[1, 2, 3]" :style="styleObj"></child2>  
+
+    <h3>动态的给子组件传入数据</h3>
+    请输入：<input type="text" v-model="activeMsg">     
+    <child :msg="activeMsg" :style="styleObj"></child>       
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        activeMsg: '',
+        styleObj: {
+          padding: '20px',
+          marginTop: '10px',
+          textAlign: 'center',
+          border: '3px solid #aaa'
+        }
+      },
+      components: {
+        child: {
+          props: ['msg','activeMsg'],
+          template: '<div>{{msg}}</div>'
+        },
+        child2: {
+          props: ['msg','activeMsg'],
+          template: '<div>{{typeof msg}}</div>'
+        }
+      }
+    })
+
+  </script>
+</body>
+
+</html>
