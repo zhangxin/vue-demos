@@ -9,18 +9,68 @@
 
 <body>
   <div id="app">
-    
+    <h3>使用子组件 data 中定义的属性暂时保存父组件传过来的值</h3>
+    <my-component :massage="str"></my-component>
+
+    <h3>使用计算属性处理父组件传过来的值</h3>
+    <my-component2 :massage="str"></my-component2> 
+    <h3>输入一个数值，动态改变 div 的宽度</h3>
+
+    <input type="text" v-model="width">
+    <my-component3 :width="width" ></my-component3> 
+    --------- {{width}}
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
-    Vue.component('my-component', {
-      template: '<div>123</div>'
+    // 尝试使用全局组件  
+    Vue.component('my-component',{
+      props: ['massage'],
+      template: '<div>{{msg}}</div>',
+      data: function() {
+        return {
+          // 注意：要使用 this
+          msg: this.massage
+        }
+      },
+      computed: {
+        addStr: function() {
+          return this.massage + '，经过子组件的计算属性处理了'
+        }
+      }
+    })
+
+    // 使用计算属性处理父组件传过来的数据
+    Vue.component('my-component2',{
+      props: ['massage'],
+      template: '<div>{{addStr}}</div>',
+      
+      computed: {
+        addStr: function() {
+          return this.massage + '，经过子组件的计算属性处理了'
+        }
+      }
+    })
+    // 子组件计算属性的一个应用
+    Vue.component('my-component3',{
+      props: ['width'],
+      template: '<div :style="styleObj"></div>',
+     
+      computed: {
+        styleObj: function(){
+          return {
+            background: 'red',
+            width: this.width + 'px',
+            height: '20px',
+          }
+        }
+      }
     })
 
     var app = new Vue({
       el: '#app',
       data: {
-        msg: '我是父组件的 msg'
+        str: '我是父组件传来的数据',
+        width: 0
       }
     })
 
