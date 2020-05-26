@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 冲突验证以及数据验证</title>
+</head>
+
+<body>
+  <div id="app">
+    <h3>vue 中使用 - 分割法</h3>
+    <my-component></my-component>
+    <h3>vue 中使用驼峰命名法</h3>
+    <my-component2></my-component2>
+
+    <!-- 报错 -->
+    <!-- <myComponent2></myComponent2> -->
+    <h3>父组件向子组件传递数据</h3>
+    <my-component3 my-msg="我是使用 - 分割法传递来的数据"></my-component3>
+    <!-- 实际传递的是 mymsg -->
+    <!-- <my-component3 myMsg="我是使用 - 分割法传递来的数据"></my-component3> -->
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    Vue.component('my-component', {
+      template: '<div>- 分割</div>'
+    })
+
+    Vue.component('myComponent2', {
+      template: '<div>驼峰</div>'
+    })
+
+    Vue.component('my-component3', {
+      props:['myMsg'],
+      // 下面也可以
+      // props:['my-msg'],
+
+      template: '<div>{{myMsg}}</div>',
+      // 下面会报错
+      // template: '<div>{{my-msg}}</div>',
+      data: function() {
+        return {
+          msg: this.myMsg
+          // 下面报错
+          // msg: this.'my-msg'
+        }
+      }
+    })
+    var app = new Vue({
+      el: '#app',
+      data: {
+        msg: '我是父组件的 msg'
+      }
+    })
+
+  </script>
+</body>
+
+</html>
