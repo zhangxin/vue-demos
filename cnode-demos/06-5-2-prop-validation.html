@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>props 数据验证</title>
+</head>
+
+<body>
+  <div id="app">
+    <my-component :msg="msg"></my-component>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    Vue.component('my-component', {
+      props: {
+        msg: String
+      },
+      template: '<div>{{this.msg}}</div>'
+    })
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        msg: '我是父组件的 msg'
+      }
+    })
+
+  </script>
+</body>
+
+</html>
