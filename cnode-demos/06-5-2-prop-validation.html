@@ -8,21 +8,72 @@
 
 <body>
   <div id="app">
-    <my-component :msg="msg"></my-component>
+    <my-component :msg="massage" :msg2="massage2" :msg3="massage3" :msg4="massage4" :msg5="massage5" :msg6="massage6" :msg7="massage7">
+
+    </my-component>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
     Vue.component('my-component', {
       props: {
-        msg: String
+        // 需要一个 string 类型
+        msg: String,
+        // 需要一个 string 或者是 number 类型
+        msg2: [Number, String],
+
+        // 需要一个 必传 的布尔值，并且默认值是 false。可选的参数有 type required default
+        msg3: {
+          type: Boolean,
+          // 如果不传就会出错
+          required: true,
+          // 默认值，传入 undefined 或者不传时候（不考虑上面的参数），就显示默认值
+          default: false
+        },
+
+        // 如果是数组或对象（不包括函数），默认值必须是一个函数来返回
+        msg4: {
+          type: Array,
+          default: function() {
+            return [1,2,3]
+          }
+        },
+        msg5: {
+          type: Object,
+          default: function() {
+            return {a:'我是默认对象的属性 a'}
+          }
+        },
+
+        // 自定义验证函数，符合条件就正常运行，反之则报错
+        msg6: {
+          validator: function(value) {
+            return value > 20
+          }
+        },
+        msg7: {
+          type: Function,
+          default: function() {
+            console.log('我是默认函数')
+          }
+        } 
+
+
       },
-      template: '<div>{{this.msg}}</div>'
+      template: '<div>{{msg}} --- {{msg2}} --- {{msg3}} --- {{msg4[0]}} --- {{msg5.a}} --- {{msg6}} -- {{msg7}}</div>'
+
     })
 
     var app = new Vue({
       el: '#app',
       data: {
-        msg: '我是父组件的 msg'
+        massage: '我是父组件的 msg',
+        massage2: 123,
+        // 虽然这里是 undefined，但是默认值是 false，最终也会渲染出 false
+        massage3: undefined,
+        massage4: [33,22,11],
+        massage5: undefined,
+        massage6: 88,
+        massage7: console.log("我是父组件传进来的函数")
       }
     })
 
