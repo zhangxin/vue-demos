@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>利用 v-model 语法糖实现子组件向父组件传递数据</title>
+  <style>
+    #app {
+      width: 600px;
+      height: 350px;
+      border: 2px solid #aaa;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 100px;
+      padding: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h3>通过子组件的加号和减号按钮来给父组件传递数据</h3>
+    <h4>v­model 其实是一个语法糖，这背后其实做了两个操作：<br>
+      1、v-­on 指令给当前元素绑定 input 事件，触发 input 事件时改变 vue 中绑定的值<br>
+      2、v­-bind 绑定一个 value 属性
+    </h4>
+    你的银行卡余额是 ------ {{totalMoney}} <br>
+    <son-component v-model="totalMoney"></son-component>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    Vue.component('son-component', {
+      template: `
+      <div>
+        <button @click=increase>+100</button> 
+        <button @click=decrease>-100</button>
+      </div>`,
+      data: function() {
+        return {
+          count: 3000
+        }
+      },
+      methods: {
+        increase: function() {
+          this.count += 100
+          this.$emit('input',this.count)
+        },
+
+        decrease: function() {
+          this.count -= 100
+          this.$emit('input',this.count)
+        }
+      }
+    })
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        totalMoney: 3000
+      }
+    })
+
+  </script>
+</body>
+
+</html>
