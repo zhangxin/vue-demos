@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>slot 单个插槽和具名插槽</title>
+  <style>
+    #app {
+      width: 600px;
+      height: 350px;
+      border: 2px solid #aaa;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 100px;
+      padding: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- #app 里的内容都是父组件的内容，哪怕写在子组件标签里作用域也是父组件 -->
+  <div id="app">
+    <h2 style="text-align:center">作用域问题</h2>  
+    <h3>这里的父组件 show 为 false，子组件 show 为 true，给子组件标签加一个 v-if，子组件不显示</h3> 
+    <h3>说明 子组件 标签上的 show 的作用域是父组件</h3> 
+    <my-component v-if="show">
+      <!-- 下面的 msg 是父组件的内容 -->
+      {{msg}}
+    </my-component>    
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+   
+    Vue.component('my-component', {
+      template:` 
+        <div>
+          我是子组件
+        </div>`,
+        data: function() {
+          return {
+            show: true
+          }
+        }
+    })
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        msg: '我是父组件的 msg',
+        show: false
+      }
+    })
+
+  </script>
+</body>
+
+</html>
