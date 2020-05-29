@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>slot 单个插槽和具名插槽</title>
+  <style>
+    #app {
+      width: 600px;
+      height: 350px;
+      border: 2px solid #aaa;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 100px;
+      padding: 30px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="app">
+    <h2 style="text-align:center">插槽</h2>
+    <h3>
+      混合父组件的内容与子组件自己的模板，从而弥补视图的不足。
+      <br>这个过程被称为 内容分发
+    </h3>
+    <!-- 单个插槽 -->
+    <!-- single-slot 是子组件模板 -->
+    <single-slot>
+      <!-- 下面的的 h3 和 hr 是父组件内容 -->
+      <!-- 在子组件标签中写入一些内容，就叫给子组件插入内容 -->
+      <h3>我是单个插槽</h3>
+      <hr>
+    </single-slot>
+
+    <!-- 具名插槽 -->
+    <my-component>
+      <h3 slot="header">我是具名插槽</h3>
+      <p>我是第一段</p>
+      <p>我是第二段</p>
+      <p slot="footer">我是结尾</p>
+    </my-component>
+      
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    Vue.component('single-slot', {
+      template: `
+      <div>                 
+        <slot>我是默认显示的值</slot>                 
+      </div>`
+    })
+    Vue.component('my-component', {
+      template:` 
+        <div>
+          <header>
+            <slot name="header">我是默认显示的值</slot>
+          </header>
+          <main>
+            <slot>我是默认显示的值</slot>
+          </main>
+          <footer>
+            <slot name="footer">我是默认显示的值</slot>
+          </footer>
+        </div>`
+    })
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        msg: '我是父组件的 msg'
+      }
+    })
+
+  </script>
+</body>
+
+</html>
