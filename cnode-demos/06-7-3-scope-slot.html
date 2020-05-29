@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>作用域插槽</title>
+  <style>
+    #app {
+      width: 600px;
+      height: 450px;
+      border: 2px solid #aaa;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 100px;
+      padding: 30px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+   <h2>作用域插槽</h2>
+   <p>作用域插槽是一种特殊的slot，使用一个可以复用的模板来替换已经渲染的元素——
+    获取子组件的 slot 标签中定义数据</p>
+    
+   <h3>2.5.0 之前，要使用 template</h3>
+    <my-component>
+      <template slot="xxx" slot-scope="prop">
+        {{prop.soltMsg}}
+      </template>
+    </my-component>    
+
+    <h3>2.5.0 之后，可以直接在标签里获取。具体差别可以看 dom 结构</h3>
+      <my-component>
+        <p slot="xxx" slot-scope="prop">
+          {{prop.soltMsg}}
+        </p>
+      </my-component>    
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+   
+    Vue.component('my-component', {
+      template:` 
+        <div style="border: 1px solid; padding: 10px">
+          我是子组件 <br>
+          <slot name="xxx" soltMsg="我是子组件 slot 标签中定义的数据">我是 slot 默认数据</slot>  
+        </div>`,
+        data: function() {
+          return {
+            show: true
+          }
+        }
+    })
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        msg: '我是父组件的 msg',
+        show: false
+      }
+    })
+
+  </script>
+</body>
+
+</html>
