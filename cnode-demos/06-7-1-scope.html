@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>slot 单个插槽和具名插槽</title>
+  <title>作用域问题</title>
   <style>
     #app {
       width: 600px;
@@ -24,6 +24,8 @@
     <h2 style="text-align:center">作用域问题</h2>  
     <h3>这里的父组件 show 为 false，子组件 show 为 true，给子组件标签加一个 v-if，子组件不显示</h3> 
     <h3>说明 子组件 标签上的 show 的作用域是父组件</h3> 
+    <p>父组件模板的内容在父组件作用域内编译；
+      子组件模板的内容在子组件作用域内编译。</p>
     <my-component v-if="show">
       <!-- 下面的 msg 是父组件的内容 -->
       {{msg}}
