@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>动态组件</title>
+  <style>
+    #app {
+      width: 600px;
+      height: 350px;
+      border: 2px solid #aaa;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 100px;
+      padding: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <p>VUE给我们提供 了一个元素叫component。
+      作用是： 用来动态的挂载不同的组件。
+      实现：使用is特性来进行实现的</p>
+    <component :is="componentName"></component>
+    <button @click="handleComponent('A')">第一句</button>
+    <button @click="handleComponent('B')">第二句</button>
+    <button @click="handleComponent('C')">第三句</button>
+    <button @click="handleComponent('D')">第四句</button>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    Vue.component('componentA', {
+      template:'<h3>我是一个兵</h3>',
+    })
+    
+    Vue.component('componentB', {
+      template:'<h3>爱国爱人民</h3>',
+    })
+    Vue.component('componentC', {
+      template:'<h3>革命战争考验了我</h3>',
+    })
+    Vue.component('componentD', {
+      template:'<h3>立场更坚定</h3>',
+    })
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        componentName: 'componentA'
+      },
+      methods: {
+        handleComponent: function(tags) {
+          this.componentName = 'component' + tags
+        }
+      }
+    })
+
+  </script>
+</body>
+
+</html>
