@@ -13,8 +13,10 @@
   <button @click="add2()">{{num2}}</button>
   <h3>方法需要参数，绑定事件正常传参</h3>
   <button @click="add3(3)">{{num3}}</button>
+
   <h3>使用 $event 传入原生 DOM 事件</h3>
   <button @click="testEvent($event)">点我</button>
+  
   <h3>事件修饰符</h3>
   <h4>什么修饰符都不加</h4>
   <div class="wrap" @click="divClick" style="width: 100px;height: 100px;background: #aaa;">
