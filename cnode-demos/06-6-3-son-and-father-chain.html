@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>非父组件数据传递 & 子父链</title>
+  <style>
+    #app {
+      width: 600px;
+      height: 350px;
+      border: 2px solid #aaa;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 100px;
+      padding: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+   <comp-a></comp-a>
+   <comp-b></comp-b>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    Vue.component('compA', {
+      template: '<div> <button @click="increase">点我向组件 B 传递数据</button> </div>',
+      data: function() {
+        return {
+          count: 3000
+        }
+      },
+      methods: {
+        increase: function() {
+          this.count += 100
+          this.$root.bus.$emit('change',this.count)
+        },
+      }
+    })
+
+    Vue.component('compB', {
+      template: `<div style="border: 1px solid; margin: 5px">
+                   我是 B 组件<br>您的银行卡余额是 --- {{count}}
+                 </div>`,
+      data: function() {
+        return {
+          count: 0
+        }
+      },
+      mounted: function() {
+        var _this = this
+        this.$root.bus.$on('change',function(value) {
+          _this.count = value
+        })
+      }
+      
+    })
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        bus: new Vue()
+      }
+    })
+
+  </script>
+</body>
+
+</html>
