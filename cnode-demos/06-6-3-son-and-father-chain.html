@@ -30,7 +30,12 @@
    <hr>
 
    <h4>父组件通过 $refs 拿到子组件数据</h4>
-    <button @click="getChildData">点击我拿到子组件的数据</button>
+    <button @click="getChildAData">点击我拿到子组件 A 的数据</button>
+    <button @click="getChildBData">点击我拿到子组件 B 的数据</button>
+    <button @click="getChildCData">点击我拿到子组件 C 的数据</button>
+    <br> 
+    <br>
+    ------------------------- {{fromChild}}
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
@@ -90,11 +95,21 @@
       el: '#app',
       data: {
         bus: new Vue(),
-        fatherMsg: '我是来自父组件的数据'
+        fatherMsg: '我是来自父组件的数据',
+        fromChild: ''
       },
       methods: {
-        getChildData: function() {
+        getChildAData: function() {
           alert(this.$refs.a.msg)
+          this.fromChild = this.$refs.a.msg
+        },
+        getChildBData: function() {
+          alert(this.$refs.b.msg)
+          this.fromChild = this.$refs.b.msg
+        },
+        getChildCData: function() {
+          alert(this.$refs.c.msg)
+          this.fromChild = this.$refs.c.msg
         }
       }
     })
