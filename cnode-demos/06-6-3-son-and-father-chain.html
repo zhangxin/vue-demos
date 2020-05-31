@@ -20,8 +20,17 @@
 
 <body>
   <div id="app">
-   <comp-a></comp-a>
-   <comp-b></comp-b>
+   <comp-a ref="a"></comp-a>
+   <comp-b ref="b"></comp-b>
+   <hr>
+
+   <h3>子父链 --- 即子组件直接拿到父组件，父组件直接拿到子组件的数据</h3>
+   <h4>不使用 $emit 直接修改父组件数据</h4>
+   <comp-c ref="c"></comp-c> -------- {{fatherMsg}}
+   <hr>
+
+   <h4>父组件通过 $refs 拿到子组件数据</h4>
+    <button @click="getChildData">点击我拿到子组件的数据</button>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
@@ -29,7 +38,8 @@
       template: '<div> <button @click="increase">点我向组件 B 传递数据</button> </div>',
       data: function() {
         return {
-          count: 3000
+          count: 3000,
+          msg: '我是 a 组件的 msg'
         }
       },
       methods: {
@@ -46,7 +56,8 @@
                  </div>`,
       data: function() {
         return {
-          count: 0
+          count: 0,
+          msg: '我是 b 组件的 msg'
         }
       },
       mounted: function() {
@@ -57,11 +68,34 @@
       }
       
     })
+    
+    Vue.component('compC', {
+      template: `<button @click="changeFatherMsg">点我直接修改父组件数据</button>`,
+      data: function() {
+        return {
+          msg: '我是 c 组件的 msg'
+        }
+      },
+      
+      methods: {
+        changeFatherMsg: function() {
+          this.$parent.fatherMsg = this.msg
+        }
+       
+      }
+    })
+
 
     var app = new Vue({
       el: '#app',
       data: {
-        bus: new Vue()
+        bus: new Vue(),
+        fatherMsg: '我是来自父组件的数据'
+      },
+      methods: {
+        getChildData: function() {
+          alert(this.$refs.a.msg)
+        }
       }
     })
 
