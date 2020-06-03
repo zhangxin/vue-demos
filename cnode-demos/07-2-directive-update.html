@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自定义指令之模板更新</title>
+</head>
+<body>
+  <div id="app">
+    <h3>测试 binding 参数的选项</h3>
+    <button v-test:foo.a.b.c="abc" @click="add">{{num}}</button>
+  </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+  Vue.directive('test', {
+    update: function(el,binding,vnode) {
+      console.log(binding.value)
+      console.log(binding.oldValue)
+      console.log(vnode)
+    }
+  })
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      abc: '我是 value',
+      num: 1
+    },
+    methods: {
+      add: function() {
+        this.abc = this.abc + this.num
+        this.num ++
+      }
+    }
+  })
+</script>
+</body>
+</html>
