@@ -8,16 +8,72 @@
 <body>
   <div id="app">
     <h2>使用组件的 template 方法</h2>
-    
+    <child :level=level>
+      我们的家乡，在希望的田野上
+    </child>
+  
+    <hr>
+
+    <h2>使用 render 函数实现</h2>
+    <child3 :level=level>
+      炊烟在新建的住房上飘荡，小河在美丽的村庄旁流淌
+    </child3>
+
+    <button @click="big">标题变大</button>
+    <button @click="small">标题变小</button>
   </div>
 
-
+  <template id="child">
+    <div>
+      <h1 v-if="level === 1"> 
+        <slot></slot>
+      </h1>
+  
+      <h2 v-else-if="level === 2"> 
+        <slot></slot>
+      </h2>
+  
+      <h3 v-else="level === 3"> 
+        <slot></slot>
+      </h3>
+    </div>
+  </template>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
+  Vue.component('child', {
+    template: '#child',
+    props: ['level']
+  })
+
+  Vue.component('child3', {
+    render: function(createElement) {
+      return createElement('h' + this.level, this.$slots.default)
+    },
+    props: ['level']
+  })
+
+
   var app = new Vue({
     el: '#app',
     data: {
-      abc: '我是 value'
+      abc: '我是 value',
+      level: 1
+    },
+    methods: {
+      big: function() {
+        this.level --
+        if (this.level < 1) {
+          this.level = 1
+          alert('太大了')
+        }
+      },
+      small: function() {
+        this.level ++
+        if (this.level > 3) {
+          this.level = 3
+          alert('太小了')
+        }
+      }
     }
   })
 </script>
