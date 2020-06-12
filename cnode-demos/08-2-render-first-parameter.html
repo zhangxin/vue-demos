@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>render 函数的第一个参数</title>
+  <style>
+    #app>div {
+      background-color: #aaa;
+      height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h2>createElement 的第一个参数为 string 时，可以传入一个 HTML 标签名</h2>
+    <child></child>
+    <hr>
+    <h2>createElement 的第一个参数为 object 时，可以传入一个含有数据选项的对象</h2>
+    <hr>
+    <h2>createElement 的第一个参数为 Function 时，可以传入一个返回数据选项对象的函数</h2>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  Vue.component('child', {
+    render: function(createElement) {
+      // 第一个参数是必须的。可以为 string | object | Function
+      // createElement 的第一个参数为 string 时，可以传入一个 HTML 标签名
+      return createElement('div')
+
+      // createElement 的第一个参数为 object 时，可以传入一个含有数据选项的对象
+      // return createElement({
+      //   template: '<div>我是一个对象</div>'
+      // })
+
+      // createElement 的第一个参数为 Function 时，可以传入一个返回数据选项对象的函数
+    //   var domFun = function() {
+    //     return {
+    //       template: '<div>我是一个函数返回的对象</div>'
+    //     }
+    //   }
+
+    //   return createElement(domFun())
+    }
+  })
+
+  
+
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+    }
+    
+  })
+</script>
+</body>
+</html>
