@@ -13,7 +13,7 @@
 </head>
 <body>
   <div id="app">
-    <h2>第三个参数是可选的。可以为 string | Array</h2>
+    <h2>第三个参数是可选的。可以为 string | Array ------ 代表子节点</h2>
     <child></child>
   </div>
 
@@ -21,7 +21,7 @@
 <script>
   Vue.component('child', {
     render: function(createElement) {
-      // 第三个参数是可选的。可以为 string | Array
+      // 第三个参数是可选的。可以为 string | Array。Array 用的比较多
       // 为 String 时候
       return createElement('div',
       // '我是一个兵，来自老百姓'
