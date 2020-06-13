@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>render 函数的第二个参数</title>
+  <style>
+    #app>div {
+      background-color: #aaa;
+      height: 60px;
+    }
+
+    .foo {
+      width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h2>createElement 的第二个参数是可选的。只能是一个包含数据选项的对象</h2>
+    <child></child>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  Vue.component('child', {
+    render: function(createElement) {
+      // createElement 的第二个参数是可选的。只能是一个包含数据选项的对象。这里只列出几个常用的数据选项，其他的用法相同具体看文档
+      return createElement({
+        template: '<div>我是一个兵</div>'
+      },
+      {
+        class: {
+          foo: true,
+          bazz: false
+        },
+        style: {
+          fontSize: '30px',
+          color: 'red',
+          textAlign: 'center'
+        },
+        // 除 class 和 style 外的正常的 html 特性
+        attrs: {
+          id: 'abc',
+          src: 'http://baidu.com'
+        },
+
+        //用来写原生的 Dom 属性
+        domProps: {
+          innerHTML: '<span style="color:blue;font-size: 18px">我是蓝色</span>',
+        }
+      })
+    }
+  })
+
+  
+
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+    }
+    
+  })
+</script>
+</body>
+</html>
