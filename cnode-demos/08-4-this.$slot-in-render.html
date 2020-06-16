@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>this.$slot 在 render 函数中的应用</title>
+  <style>
+    #app>div {
+      background-color: #aaa;
+      height: 90px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <child></child>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  Vue.component('child', {
+    render: function(createElement) {
+      
+      return createElement('div',
+      )
+
+
+    }
+  })
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+    }
+    
+  })
+</script>
+</body>
+</html>
