@@ -5,19 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>this.$slot 在 render 函数中的应用</title>
   <style>
-    #app>div {
+    #app {
       background-color: #aaa;
-      height: 90px;
+      height: 500px;
+      width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 10px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
   <div id="app">
     <child>
-      <h2>我是标题</h2>
-      <h5>我是页面尾部</h5>
+      <h5 slot="footer">我是页面尾部</h5>
       <p>我是内容 1</p>
       <p>我是内容 2</p>
+      <h2 slot="header">我是标题</h2>
     </child>
   </div>
 
@@ -25,8 +30,14 @@
 <script>
   Vue.component('child', {
     render: function(createElement) {
-      
-      return createElement('div',
+      var header = this.$slots.header
+      var footer = this.$slots.footer
+      var content = this.$slots.default
+      return createElement('div',[
+        createElement('header', header),
+        createElement('main', content),
+        createElement('footer', footer),
+      ]
       )
 
 
