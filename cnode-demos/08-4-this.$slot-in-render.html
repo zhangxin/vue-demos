@@ -30,9 +30,12 @@
 <script>
   Vue.component('child', {
     render: function(createElement) {
-      var header = this.$slots.header
+      var header = this.$slots.header  // 这里的返回值就是含有 vnode 的数组
       var footer = this.$slots.footer
       var content = this.$slots.default
+      // 第三个参数传入的是子节点 --- vnode 或者含有 vnode 的数组
+      // vnode 能大大提高页面渲染的效率。使用 js 直接操作 dom 时候，页面会重新渲染，性能较低
+      // 而使用 vnode，vue 会自动检测哪个 vnode 发生变化，然后直接更改页面，性能较强
       return createElement('div',[
         createElement('header', header),
         createElement('main', content),
