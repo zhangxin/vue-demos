@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>props 在 render 函数中的应用</title>
+  <style>
+    #app {
+      background-color: #aaa;
+      height: 500px;
+      width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>子组件通过 props 接受父组件传来的数据</h1>
+    <child :massage="msg"></child>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  Vue.component('child', {
+    props: ['massage'],
+    render: function(createElement) {
+      return createElement('h3', this.massage)
+    }
+  })
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      msg: '我是来自父组件的数据'
+    }
+  })
+</script>
+</body>
+</html>
