@@ -19,7 +19,13 @@
 <body>
   <div id="app">
   
-    <child :massage="msg"></child>
+    <child :massage="msg">
+      <template slot-scope="prop">
+        {{prop.msg}}
+        <br>
+        {{prop.text}}
+      </template>  
+    </child>
   </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -27,7 +33,10 @@
   Vue.component('child', {
     props: ['massage'],
     render: function(createElement) {
-      return createElement()
+      return createElement('div',this.$scopedSlots.default({
+        msg: '我是子组件的 msg',
+        text: 'text --- 来自子组件'
+      }))
     }
   })
 
