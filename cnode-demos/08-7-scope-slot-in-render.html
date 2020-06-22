@@ -20,7 +20,7 @@
   <div id="app">
   
     <child :massage="msg">
-      <template slot-scope="prop">
+      <template slot="xxx" slot-scope="prop">
         {{prop.msg}}
         <br>
         {{prop.text}}
@@ -33,7 +33,9 @@
   Vue.component('child', {
     props: ['massage'],
     render: function(createElement) {
-      return createElement('div',this.$scopedSlots.default({
+      // 这里的 xxx 要跟父组件插槽的 slot 对应。其实就是相当于作用域插槽的 name 
+      // 如果没有 name 那就写 default
+      return createElement('div',this.$scopedSlots.xxx({
         msg: '我是子组件的 msg',
         text: 'text --- 来自子组件'
       }))
