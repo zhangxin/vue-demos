@@ -22,8 +22,8 @@
   <div id="app">
     <h3>通过子组件的加号和减号按钮来给父组件传递数据</h3>
     <h4>v­model 其实是一个语法糖，这背后其实做了两个操作：<br>
-      1、v-­on 指令给当前元素绑定 input 事件，触发 input 事件时改变 vue 中绑定的值<br>
-      2、v­-bind 绑定一个 value 属性
+      1、v­-bind 绑定一个活的 value 属性
+      2、v-­on 指令给当前元素绑定 input 事件，触发 input 事件时改变 vue 中绑定的值<br>
     </h4>
     你的银行卡余额是 ------ {{totalMoney}} <br>
     <son-component v-model="totalMoney"></son-component>
