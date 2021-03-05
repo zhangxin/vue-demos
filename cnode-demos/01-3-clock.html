@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>实时显示当前的时间</title>
+  <style>
+    #app {
+      margin-top: 30px;
+      width: 660px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      font-size: 36px;
+      background-color: #ddd;
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, .66);
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    {{time | fomatTime("北京时间：")}}
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        time: new Date()
+      },
+
+      mounted: function() {
+        var _this = this
+        var clock = setInterval(function(){
+          _this.time = new Date()
+        },1000)
+      },
+
+      beforeDestory: function() {
+        clearInterval(clock)
+      }, 
+
+      filters: {
+        fomatTime: function(date, str) {
+          var year = date.getFullYear()
+          var month = date.getMonth() + 1
+          var day = date.getDate()
+
+          var hour = date.getHours()
+          var minutes = date.getMinutes()
+          var seconds = date.getSeconds()
+
+          return str + year + "年" + month + "月" + day + "日" + hour + "点" + minutes + "分"
+           + seconds + "秒"
+        }
+      }
+
+    })
+
+    
+  </script>
+</body>
+</html>
