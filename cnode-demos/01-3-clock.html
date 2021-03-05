@@ -35,13 +35,15 @@
 
       mounted: function() {
         var _this = this
-        var clock = setInterval(function(){
+        var this.clock = setInterval(function(){
           _this.time = new Date()
         },1000)
       },
 
       beforeDestory: function() {
-        clearInterval(clock)
+        if(this.clock) {
+          clearInterval(this.clock)
+        }
       }, 
 
       filters: {
