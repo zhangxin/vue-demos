@@ -22,7 +22,8 @@
 </head>
 <body>
   <div id="app">
-    {{time | fomatTime("北京时间：")}}
+    <!-- time 会传入 fomatTime 函数中，time 传入 fomatTime 的不是字符串而是 date 对象 -->
+    {{time | fomatTime("北京时间：")}}  
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -35,7 +36,7 @@
 
       mounted: function() {
         var _this = this
-        var this.clock = setInterval(function(){
+        this.clock = setInterval(function(){
           _this.time = new Date()
         },1000)
       },
@@ -48,6 +49,13 @@
 
       filters: {
         fomatTime: function(date, str) {
+          /* 
+          这一句是不必要的 因为 date 接受的本来就是数据的原始类型而不是一个字符串 。
+           vue 是把 data 中声明的数据直接双向绑定到 html 页面 而不是把数据转化为字符串后再绑定。
+           因此传入 filter 函数中的并不是一个字符串而是 data 中的原始数据 
+        */
+          // var date = new Date(time)  
+          
           var year = date.getFullYear()
           var month = date.getMonth() + 1
           var day = date.getDate()
