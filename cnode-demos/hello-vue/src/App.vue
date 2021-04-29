@@ -1,32 +1,51 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <h3>我是 app 组件。也是根组件</h3>
+    <nav class="nav-header">
+      <router-link :to="{name: 'Home', params: {msg:'我是快乐老家'}}">Home</router-link>
+      <router-link :to="{name: 'About', params: {msg:'我是关于自己'}}">About</router-link>
+     
+    </nav>
+    <router-view ></router-view>
+    <hr>
+    <nav>
+      <router-link to="/test">Test</router-link>
+      <router-link to="/copy">Copy</router-link>   
+    </nav>
+    <router-view name="b"></router-view>
+
+    <hr>
+    <HelloWorld/>
   </div>
 </template>
 
+<script>
+import HelloWorld from './components/HelloWorld'
+export default {
+  components: {
+    HelloWorld
+  }
+}
+</script>
+
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid;
   text-align: center;
-  color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+.nav-header {
+  border: 1px solid;
+  background-color: #ccc;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+a {
+  text-decoration: none;
+  margin-left: 10px;
+  padding: 10px;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
